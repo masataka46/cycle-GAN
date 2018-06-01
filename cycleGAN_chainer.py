@@ -187,7 +187,8 @@ class GeneratorX2Y(chainer.Chain):
         # Last Convolution
         h = self.convLast(h)
         h = self.bnCL(h)
-        h = F.relu(h)
+        # h = F.relu(h)
+        h = F.tanh(h)
 
         return h
 
@@ -325,7 +326,8 @@ class GeneratorY2X(chainer.Chain):
         # Last Convolution
         h = self.convLast(h)
         h = self.bnCL(h)
-        h = F.relu(h)
+        # h = F.relu(h)
+        h = F.tanh(h)
         # print("h.data.shape 12", h.data.shape)
         return h
 
@@ -413,10 +415,10 @@ genY2X.to_gpu()
 disX.to_gpu()
 disY.to_gpu()
 
-optimizer_genX2Y = optimizers.Adam(alpha=0.0003, beta1=0.5)
-optimizer_disX = optimizers.Adam(alpha=0.0003, beta1=0.5)
-optimizer_genY2X = optimizers.Adam(alpha=0.0003, beta1=0.5)
-optimizer_disY = optimizers.Adam(alpha=0.0003, beta1=0.5)
+optimizer_genX2Y = optimizers.Adam(alpha=0.0002, beta1=0.5)
+optimizer_disX = optimizers.Adam(alpha=0.0002, beta1=0.5)
+optimizer_genY2X = optimizers.Adam(alpha=0.0002, beta1=0.5)
+optimizer_disY = optimizers.Adam(alpha=0.0002, beta1=0.5)
 
 optimizer_genX2Y.setup(genX2Y)
 optimizer_disX.setup(disX)

@@ -66,11 +66,12 @@ def make_output_img(img_X, img_X2Y, img_X2Y2X, img_Y, img_Y2X, img_Y2X2Y, out_im
     #                     # print("over 1")
     #                 else:
     #                     wide_image[h * 28 + h_mnist][w * 28 + w_mnist][0] = value_
-    wide_image = wide_image * 255
+    # wide_image = wide_image * 255
+    wide_image = (wide_image + 1) * 128
     # wide_image = np.tile(wide_image, (1, 1, 3)) * 255
     wide_image = wide_image.astype(np.uint8)
     wide_image_PIL = Image.fromarray(wide_image)
-    wide_image_PIL.save(out_image_dir + "/resultImage_" + str(epoch) + ".png")
+    wide_image_PIL.save(out_image_dir + "/resultImage2_" + str(epoch) + ".png")
 
     
     return

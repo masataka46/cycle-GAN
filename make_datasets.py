@@ -35,14 +35,20 @@ class Make_datasets_Food101():
             pilIn = Image.open(dir + filename)
             pilResize = pilIn.resize((width, height))
             image = np.asarray(pilResize, dtype=np.float32)
-            image_t = np.transpose(image, (2, 0, 1))
+            try:
+                image_t = np.transpose(image, (2, 0, 1))
+            except:
+                print("filename =", filename)
+                image_t = image.reshape(image.shape[0], image.shape[1], 1)
+                image_t = np.tile(image_t, (1, 1, 3))
+                image_t = np.transpose(image_t, (2, 0, 1))
             images.append(image_t)
         return np.asarray(images)
 
     def normalize_data(self, data):
-        # data0_2 = data / 128.0
-        # data_norm = data - 1.0
-        data_norm = data / 255.0
+        data0_2 = data / 128.0
+        data_norm = data0_2 - 1.0
+        # data_norm = data / 255.0
         # data_norm = data - 1.0
         return data_norm
 
